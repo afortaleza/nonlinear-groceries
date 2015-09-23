@@ -4,7 +4,9 @@ This is the Nonliear test application, it's a list of groceries where you can ad
 
 ## Requirements
 - .Net Framework v4.5.1 installed
-- Application data is stored in Session, no RDBMS required
+- No RDBMS required, application data is stored in Session
+- Client libraries (js and css) are fetched from CDNs
+
 ## How to run
 Clone the git repository and cd into it
 ```
@@ -27,4 +29,6 @@ Run application
 ```
 dnx web
 ```
-Go to http://localhost:5000/index.html
+Open your browser and go to
+```
+http://localhost:5000/index.html
