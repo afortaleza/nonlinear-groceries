@@ -9,7 +9,7 @@ using Nonlinear.Groceries.Models;
 
 namespace Nonlinear.Groceries.Controllers
 {
-    [Route("api/groceries")]
+    [Route("api/[controller]")]
     public class GroceriesController : Controller
     {
         public List<Grocery> DbGrocery
@@ -32,15 +32,14 @@ namespace Nonlinear.Groceries.Controllers
             }
         }
 
-        // GET: api/values
         [HttpGet]
         public List<Grocery> Get()
         {
             return DbGrocery;
         }
 
-        [HttpPost]
-        public void Add([FromBody]string name, int order)
+        [HttpPost("Add")]
+        public string Add(string name, int order)
         {
             var db = DbGrocery;
             var grocery = new Grocery
@@ -53,31 +52,39 @@ namespace Nonlinear.Groceries.Controllers
 
             db.Add(grocery);
             DbGrocery = db;
-        }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+            return grocery.Id;
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("Move")]
+        public void Move(string sourceId, int targetOrder)
         {
+            var db = DbGrocery;
+            var source = db.First(g => g.Id == sourceId);
+            var target = db.First(g => g.Order == targetOrder);
+            target.Order = source.Order;
+            source.Order = targetOrder;
+            DbGrocery = db;
+        }
+
+        [HttpPost("Done")]
+        public void Done(string id)
+        {
+            var db = DbGrocery;
+            var item = db.Find(g => g.Id == id);
+            item.Done = !item.Done;
+            DbGrocery = db;
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPost("Delete")]
+        public void Put(string id)
         {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var db = DbGrocery;
+            var item = db.First(g => g.Id == id);
+            db.Remove(item);
+            DbGrocery = db;
         }
     }
 }

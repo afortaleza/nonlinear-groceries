@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" ng-app="groceries">
     <head>
         <meta charset="utf-8">
@@ -44,17 +44,17 @@
                     <col style="width:18%">
                     <col style="width:17%">
                 </colgroup>
-                <tbody ng-repeat="item in groceryList | orderBy: 'order'">
+                <tbody ng-repeat="item in groceryList | orderBy: 'Order'">
                     <tr>
                         <td>
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="item.done"></span>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="item.Done"></span>
                         </td>
                         <td ng-click="done(item)">
-                            <div ng-show="item.done">
-                                <del>{{item.name}} ({{item.order}})</del>
+                            <div ng-show="item.Done">
+                                <del>{{item.Name}} ({{item.Order}})</del>
                             </div>
-                            <div ng-show="!item.done">
-                                {{item.name}} ({{item.order}})
+                            <div ng-show="!item.Done">
+                                {{item.Name}} ({{item.Order}})
                             </div>
                         </td>
                         <td>
@@ -62,7 +62,7 @@
                             <span class="glyphicon glyphicon-chevron-down" aria-hidden="true" ng-click="moveDown(item)"></span>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="delete()">Delete</button>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="delete(item)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
