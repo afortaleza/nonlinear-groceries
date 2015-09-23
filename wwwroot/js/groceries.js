@@ -22,10 +22,20 @@
                 alert('Please insert grocery name');
             }
             else {
-                var maxOrder = _.max($scope.groceryList, function(item) { return item.order; });
-                var grocery = new Grocery('', $scope.groceryName, ++maxOrder, false);
+                var lastItem = _.max($scope.groceryList, function(item) { return item.order; });
+                var grocery = new Grocery('', $scope.groceryName, lastItem.order + 1, false);
                 $scope.groceryList.push(grocery);
                 $scope.groceryName = '';
+            }
+        }
+
+        $scope.done = function(item) {
+            item.done = !item.done;
+        }
+
+        $scope.delete = function(item) {
+            if (confirm('Are you sure?')) {
+                $scope.groceryList.pop(item);
             }
         }
     }
