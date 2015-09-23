@@ -17,6 +17,10 @@
             new Grocery('d', 'Peanut butter', 4, false)
         ];
 
+        $scope.orderedGroceryList = function() {
+            return 
+        }
+
         $scope.add = function() {
             if (!$scope.groceryName) {
                 alert('Please insert grocery name');
@@ -36,6 +40,32 @@
         $scope.delete = function(item) {
             if (confirm('Are you sure?')) {
                 $scope.groceryList.pop(item);
+            }
+        }
+
+        $scope.moveUp = function(item) {
+            var prevItens = _.select($scope.groceryList, function(g) { return g.order < item.order });
+            if (prevItens.length == 0)
+                alert('Already first item');
+            else
+            {
+                var prevItem = _.max(prevItens, function (g) { return g.order });
+                var prevOrder = prevItem.order;
+                prevItem.order = item.order;
+                item.order = prevOrder;
+            }
+        }
+
+        $scope.moveDown = function(item) {
+            var nextItens = _.select($scope.groceryList, function(g) { return g.order > item.order });
+            if (nextItens.length == 0)
+                alert('Already last item');
+            else
+            {
+                var nextItem = _.min(nextItens, function(g) { return item.order });
+                var nextOrder = nextItem.order;
+                nextItem.order = item.order;
+                item.order = nextOrder;
             }
         }
     }

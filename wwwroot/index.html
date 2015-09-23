@@ -40,24 +40,29 @@
             <table class="table">
                 <colgroup>
                     <col style="width:15%">
-                    <col style="width:70%">
-                    <col style="width:15%">
+                    <col style="width:50%">
+                    <col style="width:18%">
+                    <col style="width:17%">
                 </colgroup>
-                <tbody ng-repeat="item in groceryList">
+                <tbody ng-repeat="item in groceryList | orderBy: 'order'">
                     <tr>
                         <td>
                             <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="item.done"></span>
                         </td>
                         <td ng-click="done(item)">
                             <div ng-show="item.done">
-                                <del>{{item.name}}</del>
+                                <del>{{item.name}} ({{item.order}})</del>
                             </div>
                             <div ng-show="!item.done">
-                                {{item.name}}
+                                {{item.name}} ({{item.order}})
                             </div>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-xs" ng-click="delete()">Excluir</button>
+                            <span class="glyphicon glyphicon-chevron-up" aria-hidden="true" ng-click="moveUp(item)"></span>
+                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true" ng-click="moveDown(item)"></span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="delete()">Delete</button>
                         </td>
                     </tr>
                 </tbody>
